@@ -1,4 +1,4 @@
-import { Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { Controller, Get, Inject, Param, Post, Redirect } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
 
 import * as moment from 'moment';
@@ -36,6 +36,7 @@ export class EmailCampaignAnalyticController {
   }
 
   @Get('c/:emailAudienceId/:permalink')
+  @Redirect('https://www.vodea.id', 301)
   async clicked(
     @Param('emailAudienceId') emailAudienceId: string,
     @Param('permalink') permalink: string,
@@ -47,10 +48,7 @@ export class EmailCampaignAnalyticController {
       })
       .toPromise();
 
-    return {
-      emailAudienceId,
-      permalink,
-    };
+    return { url: permalink };
   }
 
   @Post('u/:emailAudienceId')
