@@ -32,7 +32,6 @@
     "class-validator": "^0.13.1",
     "express-rate-limit": "^5.2.6",
     "helmet": "^4.6.0",
-    "kafkajs": "^1.15.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "reflect-metadata": "^0.1.13",
