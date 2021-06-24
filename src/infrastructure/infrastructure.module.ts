@@ -4,23 +4,14 @@ import { ClientProxyFactory, Transport } from '@nestjs/microservices';
 
 const providers: Provider[] = [
   {
-    provide: 'CLIENT_KAFKA',
+    provide: 'CAMPAIGN_SERVICE',
     inject: [ConfigService],
     useFactory: (configService: ConfigService) =>
       ClientProxyFactory.create({
-        transport: Transport.KAFKA,
+        transport: Transport.TCP,
         options: {
-          client: {
-            clientId: configService.get<string>('KAFKA_CLIENT_ID') || 'public',
-            brokers: [
-              configService.get<string>('KAFKA_BROKER') || 'localhost:9092',
-            ],
-          },
-          consumer: {
-            groupId:
-              configService.get<string>('KAFKA_CONSUMER_GROUP_ID') ||
-              'public-consumer',
-          },
+          host: configService.get<string>('CAMPAIGN_SERVICE_HOST'),
+          port: configService.get<number>('CAMPAIGN_SERVICE_PORT'),
         },
       }),
   },
